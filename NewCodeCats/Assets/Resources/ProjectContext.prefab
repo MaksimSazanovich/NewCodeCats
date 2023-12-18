@@ -103,3 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curtainConfig: {fileID: 11400000, guid: 48fc883610e398d40921cffb85273d6d, type: 2}
+  catConfig: {fileID: 11400000, guid: 1ad819b8311ece44c9e9e43d0b3424b8, type: 2}
+  catsSpawnerConfig: {fileID: 11400000, guid: a1f36d4c35a9fdc489f671739175af22, type: 2}
+  cameraConfig: {fileID: 11400000, guid: 7aa9ec07285d70540814de9a25947394, type: 2}

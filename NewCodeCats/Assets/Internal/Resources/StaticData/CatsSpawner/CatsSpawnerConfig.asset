@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d6862ae1ff4df4ae8cc4ad7a170570, type: 3}
+  m_Name: CatsSpawnerConfig
+  m_EditorClassIdentifier: 
+  <CatsSpawner>k__BackingField: {fileID: -5640736530827916753, guid: c6bbd9a6eeebc59448bf89a9998619cd, type: 3}

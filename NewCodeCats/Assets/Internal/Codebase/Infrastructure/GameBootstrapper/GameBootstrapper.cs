@@ -1,4 +1,7 @@
 using Internal.Codebase.Infrastructure.Constants;
+using Internal.Codebase.Infrastructure.Factories.CameraFactory;
+using Internal.Codebase.Infrastructure.Factories.CatsFactory;
+using Internal.Codebase.Infrastructure.GameStateMachine.States;
 using Internal.Codebase.Infrastructure.Services.LoadingCurtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.UI.MainUI.LoadingCurtain;
@@ -12,30 +15,26 @@ namespace Internal.Codebase.Infrastructure.GameBootstrapper
         private ISceneLoaderService loaderService;
         private ICurtainService curtainService;
         private CurtainConfig curtainConfig;
+        private GameStateMachine.GameStateMachine stateMachine;
+        private ICatFactory catFactory;
+        private ICameraFactory cameraFactory;
 
         [Inject]
         private void Constructor(ISceneLoaderService loaderService, ICurtainService curtainService,
-            CurtainConfig curtainConfig)
+            CurtainConfig curtainConfig, ICatFactory catFactory, ICameraFactory cameraFactory)
         {
+            this.cameraFactory = cameraFactory;
+            this.catFactory = catFactory;
             this.curtainConfig = curtainConfig;
             this.curtainService = curtainService;
             this.loaderService = loaderService;
         }
         private void Start()
         {
-            Load();
+            stateMachine = new GameStateMachine.GameStateMachine(loaderService, curtainService, curtainConfig, catFactory,
+                cameraFactory);
+            stateMachine.Enter<BootstrapState>();
         }
-
-        private void Load()
-        {
-            curtainService.Init();
-            curtainService.ShowCurtain(true, HideCurtain); 
-        }
-
-        private void HideCurtain()
-        {
-            curtainService.HideCurtain(curtainConfig.HideDelay);
-            loaderService.LoadScene(SceneName.MenuScene/*TODO if WebJL InitGRA*/);
-        }
+        
     }
 }
