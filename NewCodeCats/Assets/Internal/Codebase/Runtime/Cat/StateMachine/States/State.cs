@@ -46,5 +46,10 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine.States
         {
             
         }
+
+        public virtual void OnMouseDrag()
+        {
+            
+        }
     }
 }

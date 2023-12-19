@@ -2,6 +2,7 @@ using Internal.Codebase.Infrastructure.Constants;
 using Internal.Codebase.Infrastructure.Factories.CameraFactory;
 using Internal.Codebase.Infrastructure.Factories.CatsFactory;
 using Internal.Codebase.Infrastructure.GameStateMachine.States;
+using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.LoadingCurtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.UI.MainUI.LoadingCurtain;
@@ -18,11 +19,13 @@ namespace Internal.Codebase.Infrastructure.GameBootstrapper
         private GameStateMachine.GameStateMachine stateMachine;
         private ICatFactory catFactory;
         private ICameraFactory cameraFactory;
+        private ICoroutineRunner coroutineRunner;
 
         [Inject]
         private void Constructor(ISceneLoaderService loaderService, ICurtainService curtainService,
-            CurtainConfig curtainConfig, ICatFactory catFactory, ICameraFactory cameraFactory)
+            CurtainConfig curtainConfig, ICatFactory catFactory, ICameraFactory cameraFactory, ICoroutineRunner coroutineRunner)
         {
+            this.coroutineRunner = coroutineRunner;
             this.cameraFactory = cameraFactory;
             this.catFactory = catFactory;
             this.curtainConfig = curtainConfig;
@@ -32,7 +35,7 @@ namespace Internal.Codebase.Infrastructure.GameBootstrapper
         private void Start()
         {
             stateMachine = new GameStateMachine.GameStateMachine(loaderService, curtainService, curtainConfig, catFactory,
-                cameraFactory);
+                cameraFactory, coroutineRunner);
             stateMachine.Enter<BootstrapState>();
         }
         

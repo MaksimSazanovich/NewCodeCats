@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.Factories.CameraFactory;
 using Internal.Codebase.Infrastructure.Factories.CatsFactory;
 using Internal.Codebase.Infrastructure.GameStateMachine.States;
+using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.LoadingCurtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.UI.MainUI.LoadingCurtain;
@@ -15,13 +16,13 @@ namespace Internal.Codebase.Infrastructure.GameStateMachine
         private IExitableState activeState;
 
         public GameStateMachine(ISceneLoaderService sceneLoader, ICurtainService curtain, CurtainConfig curtainConfig,
-            ICatFactory catFactory, ICameraFactory cameraFactory)
+            ICatFactory catFactory, ICameraFactory cameraFactory, ICoroutineRunner coroutineRunner)
         {
             states = new Dictionary<Type, IExitableState>
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
                 [typeof(LoadGameSceneState)] = new LoadGameSceneState(this, sceneLoader, curtain, curtainConfig,
-                    catFactory, cameraFactory),
+                    catFactory, cameraFactory, coroutineRunner),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }

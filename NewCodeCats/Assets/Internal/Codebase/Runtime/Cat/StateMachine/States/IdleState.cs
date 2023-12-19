@@ -1,8 +1,5 @@
-
 using System.Collections;
-using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using UnityEngine;
-using Zenject;
 
 namespace Internal.Codebase.Runtime.Cat.StateMachine.States
 {
@@ -23,7 +20,7 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine.States
         {
             yield return new WaitForSeconds(1);
             CreateMoney();
-            StateMachine.ChangeState<RunState>().Enter();
+            StateMachine.ChangeToRunState();
         }
 
         private void CreateMoney()

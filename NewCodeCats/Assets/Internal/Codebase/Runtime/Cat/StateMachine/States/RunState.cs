@@ -13,7 +13,12 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine.States
         public override void Enter()
         {
             StateMachine.transform.DOMove(GetRandomPostionInSquare(),
-                StateMachine.Speed).SetSpeedBased().OnComplete(() => StateMachine.ChangeState<IdleState>().Enter());
+                StateMachine.Speed).SetSpeedBased().OnComplete(() => StateMachine.ChangeToIdleState());
+        }
+
+        public override void Exit()
+        {
+            DOTween.KillAll();
         }
 
         private Vector3 GetRandomPostionInSquare()

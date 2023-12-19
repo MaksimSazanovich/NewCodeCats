@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.Factories.CatsFactory;
+using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using ModestTree;
 using NaughtyAttributes;
 using NTC.Pool;
@@ -14,9 +15,11 @@ namespace Internal.Codebase.Runtime.CatsSpawner
         [field: SerializeField] public List<Cat.Markers.Cat> Cats { get; private set; }
         [field: SerializeField] public int MaxCatsCount = 15;
         private UnityEngine.Camera camera;
+        private ICoroutineRunner coroutineRunner;
 
-        public void Constructor(ICatFactory catFactory, UnityEngine.Camera camera)
+        public void Constructor(ICatFactory catFactory, ICoroutineRunner coroutineRunner, UnityEngine.Camera camera)
         {
+            this.coroutineRunner = coroutineRunner;
             this.camera = camera;
             this.catFactory = catFactory;
         }
@@ -43,7 +46,7 @@ namespace Internal.Codebase.Runtime.CatsSpawner
         {
             for (int i = 0; i < MaxCatsCount; i++)
             {
-                Cats.Add(catFactory.CreateCat(camera, transform));
+                Cats.Add(catFactory.CreateCat(camera, coroutineRunner, transform));
             }
         }
     }

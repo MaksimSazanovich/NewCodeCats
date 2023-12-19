@@ -1,6 +1,7 @@
 using Internal.Codebase.Infrastructure.Constants;
 using Internal.Codebase.Infrastructure.Factories.CameraFactory;
 using Internal.Codebase.Infrastructure.Factories.CatsFactory;
+using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.LoadingCurtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Runtime.CatsSpawner;
@@ -17,11 +18,13 @@ namespace Internal.Codebase.Infrastructure.GameStateMachine.States
         private CurtainConfig curtainConfig;
         private ICatFactory catFactory;
         private ICameraFactory cameraFactory;
+        private ICoroutineRunner coroutineRunner;
 
         public LoadGameSceneState(GameStateMachine stateMachine, ISceneLoaderService sceneLoader,
-            ICurtainService curtainService,
-            CurtainConfig curtainConfig, ICatFactory catFactory, ICameraFactory cameraFactory)
+            ICurtainService curtainService, CurtainConfig curtainConfig, ICatFactory catFactory,
+            ICameraFactory cameraFactory, ICoroutineRunner coroutineRunner)
         {
+            this.coroutineRunner = coroutineRunner;
             this.cameraFactory = cameraFactory;
             this.catFactory = catFactory;
             this.curtainConfig = curtainConfig;
@@ -38,13 +41,13 @@ namespace Internal.Codebase.Infrastructure.GameStateMachine.States
             sceneLoader.LoadScene(sceneName, OnLoaded);
         }
 
-        public void Exit() => curtainService.HideCurtain(curtainConfig.HideDelay);
+        public void Exit() => curtainService.HideCurtain();
 
         private void OnLoaded()
         {
             Camera camera = cameraFactory.CreateCamera();
 
-            CatsSpawner catsSpawner = catFactory.CreateCatsSpawner(catFactory, camera);
+            CatsSpawner catsSpawner = catFactory.CreateCatsSpawner(catFactory, coroutineRunner, camera);
             catsSpawner.Init();
 
             curtainService.ShowCurtain(false);
