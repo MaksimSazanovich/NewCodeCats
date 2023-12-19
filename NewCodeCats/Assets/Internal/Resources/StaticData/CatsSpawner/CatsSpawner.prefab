@@ -63,7 +63,7 @@ MonoBehaviour:
   preloadPoolsType: 0
   poolsPreset: {fileID: 0}
   _behaviourOnCapacityReached: 2
-  _despawnType: 2
+  _despawnType: 0
   _callbacksType: 1
   _capacity: 15
   _dontDestroyOnLoad: 0

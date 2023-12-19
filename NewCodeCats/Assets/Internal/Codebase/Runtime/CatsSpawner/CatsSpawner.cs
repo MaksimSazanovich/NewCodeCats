@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.Factories.CatsFactory;
 using ModestTree;
+using NaughtyAttributes;
 using NTC.Pool;
 using UnityEngine;
-using Zenject;
 
 namespace Internal.Codebase.Runtime.CatsSpawner
 {
@@ -25,11 +25,24 @@ namespace Internal.Codebase.Runtime.CatsSpawner
         {
             if (Cats.IsEmpty())
             {
-                for (int i = 0; i < MaxCatsCount-1; i++)
-                {
-                    Cats.Add(catFactory.CreateCat(camera, transform));
-                    NightPool.DestroyClone(Cats[i]);
-                }
+                CreateCats();
+
+                DespawnCats();
+            }
+        }
+
+        private void DespawnCats()
+        {
+            for (int i = 0; i < MaxCatsCount - 1; i++)
+            {
+                NightPool.Despawn(Cats[i]);
+            }
+        }
+
+        private void CreateCats()
+        {
+            for (int i = 0; i < MaxCatsCount; i++)
+            {
                 Cats.Add(catFactory.CreateCat(camera, transform));
             }
         }

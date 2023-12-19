@@ -47,6 +47,7 @@ namespace Internal.Codebase.Infrastructure.GameStateMachine.States
             CatsSpawner catsSpawner = catFactory.CreateCatsSpawner(catFactory, camera);
             catsSpawner.Init();
 
+            curtainService.ShowCurtain(false);
             stateMachine.Enter<GameLoopState>();
         }
 
