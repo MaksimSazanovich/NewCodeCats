@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5999402430656905252}
   - component: {fileID: 5745952365205158092}
   - component: {fileID: -5875205370619586725}
+  - component: {fileID: 3408278479105185050}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -158,3 +159,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <DragComponent>k__BackingField: {fileID: 5999402430656905252}
+--- !u!114 &3408278479105185050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6049941469940276562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e78be51eeefc49d388248f3146966cf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <RunOffset>k__BackingField: 1
+  <Speed>k__BackingField: 0.5

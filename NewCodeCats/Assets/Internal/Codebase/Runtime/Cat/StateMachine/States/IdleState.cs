@@ -1,30 +1,34 @@
+
+using System.Collections;
+using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Codebase.Runtime.Cat.StateMachine.States
 {
     public class IdleState : State
     {
+
         public IdleState(CatStateMachine stateMachine) : base(stateMachine)
         {
             
         }
+        
         public override void Enter()
         {
-            Debug.Log("Enter IdleState");
+            StateMachine.CoroutineRunner.StartCoroutine(MoneyCreatingTimer());
         }
 
-        public override void Exit()
+        private IEnumerator MoneyCreatingTimer()
         {
-            Debug.Log("Exit IdleState");
+            yield return new WaitForSeconds(1);
+            CreateMoney();
+            StateMachine.ChangeState<RunState>().Enter();
         }
 
-        public override void Update()
+        private void CreateMoney()
         {
-            //Debug.Log("Update IdleState");
-        }
-
-        public override void OnCollisionEnter2D(Collision2D other)
-        {
+            Debug.Log("+1");
         }
     }
 }
