@@ -18,7 +18,8 @@ namespace Internal.Codebase.Infrastructure.GameStateMachine.States
         private ICatFactory catFactory;
         private ICameraFactory cameraFactory;
 
-        public LoadGameSceneState(GameStateMachine stateMachine, ISceneLoaderService sceneLoader, ICurtainService curtainService,
+        public LoadGameSceneState(GameStateMachine stateMachine, ISceneLoaderService sceneLoader,
+            ICurtainService curtainService,
             CurtainConfig curtainConfig, ICatFactory catFactory, ICameraFactory cameraFactory)
         {
             this.cameraFactory = cameraFactory;
@@ -27,7 +28,7 @@ namespace Internal.Codebase.Infrastructure.GameStateMachine.States
             this.stateMachine = stateMachine;
             this.sceneLoader = sceneLoader;
             this.curtainService = curtainService;
-            
+
             this.curtainService.Init();
         }
 
@@ -42,16 +43,16 @@ namespace Internal.Codebase.Infrastructure.GameStateMachine.States
         private void OnLoaded()
         {
             Camera camera = cameraFactory.CreateCamera();
-            
+
             CatsSpawner catsSpawner = catFactory.CreateCatsSpawner(catFactory, camera);
             catsSpawner.Init();
-            
+
             stateMachine.Enter<GameLoopState>();
         }
-        
+
         private void Load()
         {
-            curtainService.ShowCurtain(true); 
+            curtainService.ShowCurtain(true);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Internal.Codebase.Infrastructure.Factories.CatsFactory
 {
     public interface ICatFactory
     {
-        public Cat CreateCat(Camera camera);
+        public Cat CreateCat(Camera camera, Transform at);
         
         public CatsSpawner CreateCatsSpawner(ICatFactory catFactory, Camera camera);
     }

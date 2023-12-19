@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.nighttraincode.nightpool": {
+      "version": "https://github.com/MeeXaSiK/NightPool.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "fb0218774b66a8e3d99505c5eefda3ff8b41ba2d"
+    },
     "com.rimurudev.sceneswitcher": {
       "version": "https://github.com/RimuruDev/SceneSwitcher.git",
       "depth": 0,

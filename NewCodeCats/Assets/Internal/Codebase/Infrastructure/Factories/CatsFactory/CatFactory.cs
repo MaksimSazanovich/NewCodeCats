@@ -1,6 +1,7 @@
 using Internal.Codebase.Infrastructure.Services.ResourceProvider;
 using Internal.Codebase.Runtime.Cat.Markers;
 using Internal.Codebase.Runtime.CatsSpawner;
+using NTC.Pool;
 using UnityEngine;
 using Zenject;
 
@@ -16,11 +17,12 @@ namespace Internal.Codebase.Infrastructure.Factories.CatsFactory
             this.resourceProvider = resourceProvider;
         }
         
-        public Cat CreateCat(Camera camera)
+        public Cat CreateCat(Camera camera, Transform at)
         {
             var config = resourceProvider.LoadCatConfig();
 
-            var view = Object.Instantiate(config.Cat);
+            var view = NightPool.Spawn(config.Cat, at);
+            
             view.DragComponent.Constructor(camera);
 
             return view;
