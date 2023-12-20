@@ -1,3 +1,4 @@
+using Internal.Codebase.Infrastructure.Services.CameraService;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.LoadingCurtain;
 using Internal.Codebase.Infrastructure.Services.ResourceProvider;
@@ -19,6 +20,7 @@ namespace Internal.Codebase.Infrastructure.Installers
             Container.Bind<IResourceProvider>().To<ResourceProvider>().AsSingle().NonLazy();
             
             Container.Bind<ICurtainService>().To<CurtainService>().AsSingle().NonLazy();
+            Container.Bind<ICameraService>().To<CameraService>().AsSingle().NonLazy();
         }
     }
 }

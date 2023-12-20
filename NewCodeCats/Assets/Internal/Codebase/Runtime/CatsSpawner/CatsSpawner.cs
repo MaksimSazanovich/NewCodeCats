@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.Factories.CatsFactory;
+using Internal.Codebase.Infrastructure.Services.CameraService;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using ModestTree;
 using NaughtyAttributes;
 using NTC.Pool;
 using UnityEngine;
+using Zenject;
 
 namespace Internal.Codebase.Runtime.CatsSpawner
 {
@@ -14,14 +16,14 @@ namespace Internal.Codebase.Runtime.CatsSpawner
         private ICatFactory catFactory;
         [field: SerializeField] public List<Cat.Markers.Cat> Cats { get; private set; }
         [field: SerializeField] public int MaxCatsCount = 15;
-        private UnityEngine.Camera camera;
+        private ICameraService cameraService;
         private ICoroutineRunner coroutineRunner;
 
-        public void Constructor(ICatFactory catFactory, ICoroutineRunner coroutineRunner, UnityEngine.Camera camera)
+        public void Constructor(ICatFactory catFactory, ICoroutineRunner coroutineRunner, ICameraService cameraService)
         {
             this.coroutineRunner = coroutineRunner;
-            this.camera = camera;
             this.catFactory = catFactory;
+            this.cameraService = cameraService;
         }
 
         public void Init()
@@ -46,14 +48,14 @@ namespace Internal.Codebase.Runtime.CatsSpawner
         {
             for (int i = 0; i < MaxCatsCount; i++)
             {
-                Cats.Add(catFactory.CreateCat(camera, coroutineRunner, transform));
+                Cats.Add(catFactory.CreateCat(cameraService.GetCamera(), coroutineRunner, transform, cameraService));
             }
         }
 
         [Button(nameof(EnableCat))]
         public void EnableCat()
         {
-            catFactory.CreateCat(camera, coroutineRunner, transform);
+            catFactory.CreateCat(cameraService.GetCamera(), coroutineRunner, transform, cameraService);
         }
     }
 }

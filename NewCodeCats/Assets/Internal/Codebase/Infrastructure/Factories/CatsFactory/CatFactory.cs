@@ -1,3 +1,4 @@
+using Internal.Codebase.Infrastructure.Services.CameraService;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.ResourceProvider;
 using Internal.Codebase.Runtime.Cat.Markers;
@@ -18,23 +19,24 @@ namespace Internal.Codebase.Infrastructure.Factories.CatsFactory
             this.resourceProvider = resourceProvider;
         }
         
-        public Cat CreateCat(Camera camera, ICoroutineRunner coroutineRunner, Transform at)
+        public Cat CreateCat(Camera camera, ICoroutineRunner coroutineRunner, Transform at, ICameraService cameraService)
         {
             var config = resourceProvider.LoadCatConfig();
 
             var view = NightPool.Spawn(config.Cat, at);
             
             view.StateMachine.Constructor(coroutineRunner, camera);
+            view.CheckBoundariesComponent.Constructor(cameraService);
 
             return view;
         }
 
-        public CatsSpawner CreateCatsSpawner(ICatFactory catFactory, ICoroutineRunner coroutineRunner, Camera camera)
+        public CatsSpawner CreateCatsSpawner(ICatFactory catFactory, ICoroutineRunner coroutineRunner, ICameraService cameraService)
         {
             var config = resourceProvider.LoadCatsSpawnerConfig();
 
             var view = Object.Instantiate(config.CatsSpawner);
-            view.Constructor(catFactory, coroutineRunner, camera);
+            view.Constructor(catFactory, coroutineRunner, cameraService);
 
             return view;
         }

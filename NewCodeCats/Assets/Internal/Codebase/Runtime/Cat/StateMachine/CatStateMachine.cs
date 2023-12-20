@@ -11,10 +11,10 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
         private Dictionary<Type, State> states;
         private State activeState;
         
-        private Vector2 screenBounds;
         
         
-        [field: SerializeField] public float Offset { get; private set; }
+        
+       
         public UnityEngine.Camera Camera { get; private set; }
 
         public ICoroutineRunner CoroutineRunner { get; private set; }
@@ -35,18 +35,13 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
         
         private void Start()
         {
-            
             activeState.Enter(this);
             activeState.StartState(this);
-            
-            screenBounds = Camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,
-                Camera.transform.position.z));
         }
 
         private void Update()
         {
             activeState.UpdateState(this);
-            CheckBoundaries();
         }
 
         private void FixedUpdate()
@@ -62,7 +57,6 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
         private void OnMouseDrag()
         {
             activeState.OnMouseDragState(this);
-            CheckBoundaries();
         }
 
         private void OnMouseUp()
@@ -118,14 +112,5 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
         /*public void ChangeToRunState() => ChangeState<RunState>().Enter(this);
         public void ChangeToIdleState() => ChangeState<IdleState>().Enter(this);
         public void ChangeToDragState() => ChangeState<DragState>().Enter(this);*/
-        
-        public void CheckBoundaries()
-        {
-            float x = Mathf.Clamp(transform.position.x, -screenBounds.x + Offset,
-                screenBounds.x - Offset);
-            float y = Mathf.Clamp(transform.position.y, -screenBounds.y + Offset,
-                screenBounds.y - Offset);
-            transform.position = new Vector3(x, y, 0);
-        }
     }
 }

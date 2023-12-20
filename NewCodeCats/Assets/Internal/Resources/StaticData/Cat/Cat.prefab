@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -2216424382673261239}
   - component: {fileID: 681336334000307465}
   - component: {fileID: 6333038084007239859}
+  - component: {fileID: -6865930711307938010}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -148,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <StateMachine>k__BackingField: {fileID: 3408278479105185050}
+  <CheckBoundariesComponent>k__BackingField: {fileID: -6865930711307938010}
 --- !u!114 &3408278479105185050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e78be51eeefc49d388248f3146966cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Offset>k__BackingField: 1
   idleState: {fileID: -2216424382673261239}
   runState: {fileID: 681336334000307465}
   dragState: {fileID: 6333038084007239859}
@@ -202,3 +203,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f98482e7426341a8bfee020fc20ebb57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6865930711307938010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6049941469940276562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e848da4cf6264c2dbe9f1e8c4a4723fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Offset>k__BackingField: 1
