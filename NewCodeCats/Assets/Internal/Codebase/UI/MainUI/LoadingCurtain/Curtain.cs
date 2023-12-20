@@ -67,15 +67,9 @@ namespace Internal.Codebase.UI.MainUI.LoadingCurtain
                 });
         }
         
-        public void HideCurtain(Action callback)
+        public void HideCurtain()
         {
-            canvasGroup
-                .DOFade(0, animationDuration)
-                .OnComplete(() =>
-                {
-                    gameObject.SetActive(false);
-                    callback?.Invoke();
-                });
+            canvasGroup.alpha = 0;
         }
     }
 }

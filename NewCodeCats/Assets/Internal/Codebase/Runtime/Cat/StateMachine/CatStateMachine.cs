@@ -13,35 +13,31 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
         
         private Vector2 screenBounds;
         
-        [field: SerializeField] public float RunOffset { get; private set; } = 1;
-        [field: SerializeField] public float Speed { get; private set; } = 4;
+        
         [field: SerializeField] public float Offset { get; private set; }
         public UnityEngine.Camera Camera { get; private set; }
 
         public ICoroutineRunner CoroutineRunner { get; private set; }
 
+        [SerializeField] private IdleState idleState;
+        [SerializeField] private RunState runState;
+        [SerializeField] private DragState dragState;
+
         public void Constructor(ICoroutineRunner coroutineRunner, UnityEngine.Camera camera)
         {
             this.Camera = camera;
             CoroutineRunner = coroutineRunner;
-            Debug.Log(nameof(CoroutineRunner) + coroutineRunner);
         }
         private void Awake()
         {
-            states = new Dictionary<Type, State>
-            {
-                [typeof(IdleState)] = new IdleState(this),
-                [typeof(RunState)] = new RunState(this),
-                [typeof(DragState)] = new DragState(this)
-            };
-
-            activeState = GetState<RunState>();
+            activeState = runState;
         }
         
         private void Start()
         {
-            activeState.Enter();
-            activeState.Start();
+            
+            activeState.Enter(this);
+            activeState.StartState(this);
             
             screenBounds = Camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,
                 Camera.transform.position.z));
@@ -49,14 +45,13 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
 
         private void Update()
         {
-            activeState.Update();
-            Debug.Log(activeState);
+            activeState.UpdateState(this);
             CheckBoundaries();
         }
 
         private void FixedUpdate()
         {
-            activeState.FixedUpdate();
+            activeState.FixedUpdateState(this);
         }
 
         private void OnMouseDown()
@@ -66,12 +61,13 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
 
         private void OnMouseDrag()
         {
-            activeState.OnMouseDrag();
+            activeState.OnMouseDragState(this);
             CheckBoundaries();
         }
 
         private void OnMouseUp()
         {
+            Debug.Log("MouseUp");
             ChangeToRunState();
         }
 
@@ -87,7 +83,7 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
 
         public TState ChangeState<TState>() where TState : State
         {
-            activeState?.Exit();
+            activeState?.Exit(this);
 
             TState state = GetState<TState>();
             activeState = state;
@@ -97,10 +93,31 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
 
         private TState GetState<TState>() where TState : State
             => states[typeof(TState)] as TState;
-        
-        public void ChangeToRunState() => ChangeState<RunState>().Enter();
-        public void ChangeToIdleState() => ChangeState<IdleState>().Enter();
-        public void ChangeToDragState() => ChangeState<DragState>().Enter();
+
+        public void ChangeToRunState()
+        {
+            activeState?.Exit(this);
+            activeState = runState;
+            activeState.Enter(this);
+        }
+
+        public void ChangeToIdleState()
+        {
+            activeState?.Exit(this);
+            activeState = idleState;
+            activeState.Enter(this);
+        }
+
+        public void ChangeToDragState()
+        {
+            activeState?.Exit(this);
+            activeState = dragState;
+            activeState.Enter(this);
+        }
+
+        /*public void ChangeToRunState() => ChangeState<RunState>().Enter(this);
+        public void ChangeToIdleState() => ChangeState<IdleState>().Enter(this);
+        public void ChangeToDragState() => ChangeState<DragState>().Enter(this);*/
         
         public void CheckBoundaries()
         {

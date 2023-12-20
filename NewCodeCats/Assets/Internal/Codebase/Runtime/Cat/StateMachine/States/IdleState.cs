@@ -5,27 +5,30 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine.States
 {
     public class IdleState : State
     {
+        private CatStateMachine stateMachine;
+        private Coroutine coroutine;
 
-        public IdleState(CatStateMachine stateMachine) : base(stateMachine)
+        public override void Enter(CatStateMachine stateMachine)
         {
-            
-        }
-        
-        public override void Enter()
-        {
-            StateMachine.CoroutineRunner.StartCoroutine(MoneyCreatingTimer());
+            this.stateMachine = stateMachine;
+            coroutine = StartCoroutine(MoneyCreatingTimer());
         }
 
         private IEnumerator MoneyCreatingTimer()
         {
             yield return new WaitForSeconds(1);
             CreateMoney();
-            StateMachine.ChangeToRunState();
+            stateMachine.ChangeToRunState();
         }
 
         private void CreateMoney()
         {
             Debug.Log("+1");
+        }
+
+        public override void Exit(CatStateMachine stateMachine)
+        {
+            StopCoroutine(coroutine);
         }
     }
 }

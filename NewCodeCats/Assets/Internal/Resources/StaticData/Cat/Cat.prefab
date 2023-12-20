@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 5745952365205158092}
   - component: {fileID: -5875205370619586725}
   - component: {fileID: 3408278479105185050}
+  - component: {fileID: -2216424382673261239}
+  - component: {fileID: 681336334000307465}
+  - component: {fileID: 6333038084007239859}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -157,6 +160,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e78be51eeefc49d388248f3146966cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <RunOffset>k__BackingField: 1
-  <Speed>k__BackingField: 0.5
   <Offset>k__BackingField: 1
+  idleState: {fileID: -2216424382673261239}
+  runState: {fileID: 681336334000307465}
+  dragState: {fileID: 6333038084007239859}
+--- !u!114 &-2216424382673261239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6049941469940276562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cba443f789743f2bb96a6c7250739c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &681336334000307465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6049941469940276562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49879ec4713d4250a67d6ce6279163f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <RunOffset>k__BackingField: 1
+  <Speed>k__BackingField: 0.05
+--- !u!114 &6333038084007239859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6049941469940276562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98482e7426341a8bfee020fc20ebb57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -49,5 +49,11 @@ namespace Internal.Codebase.Runtime.CatsSpawner
                 Cats.Add(catFactory.CreateCat(camera, coroutineRunner, transform));
             }
         }
+
+        [Button(nameof(EnableCat))]
+        public void EnableCat()
+        {
+            catFactory.CreateCat(camera, coroutineRunner, transform);
+        }
     }
 }

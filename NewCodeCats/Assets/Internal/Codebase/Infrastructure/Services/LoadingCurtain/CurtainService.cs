@@ -23,9 +23,9 @@ namespace Internal.Codebase.Infrastructure.Services.LoadingCurtain
         public void HideCurtain(float startDelay, Action callback = null) =>
             curtain.HideCurtain(startDelay, callback);
 
-        public void HideCurtain(Action callback = null)
+        public void HideCurtain()
         {
-            curtain.HideCurtain(callback);
+            curtain.HideCurtain();
         }
     }
 }

@@ -9,6 +9,6 @@ namespace Internal.Codebase.Infrastructure.Services.LoadingCurtain
         public void ShowCurtain(bool isAnimated, Action callback = null);
         
         public void HideCurtain(float startDelay, Action callback = null);
-        public void HideCurtain(Action callback = null);
+        public void HideCurtain();
     }
 }

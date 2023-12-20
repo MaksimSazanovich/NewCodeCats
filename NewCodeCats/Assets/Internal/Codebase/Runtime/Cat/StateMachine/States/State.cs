@@ -2,38 +2,33 @@ using UnityEngine;
 
 namespace Internal.Codebase.Runtime.Cat.StateMachine.States
 {
-    public abstract class State 
+    public abstract class State : MonoBehaviour
     {
-        protected readonly CatStateMachine StateMachine;
-        
-        protected State(CatStateMachine stateMachine) =>
-            StateMachine = stateMachine;
-        
-        public virtual void Enter()
+        public virtual void Enter(CatStateMachine stateMachine)
         {
         }
 
-        public virtual void Exit()
+        public virtual void Exit(CatStateMachine stateMachine)
         {
         }
 
-        public virtual void Awake()
+        public virtual void AwakeState(CatStateMachine stateMachine)
         {
         }
 
-        public virtual void Start()
+        public virtual void StartState(CatStateMachine stateMachine)
         {
         }
 
-        public virtual void Update()
+        public virtual void UpdateState(CatStateMachine stateMachine)
         {
         }
 
-        public virtual void LateUpdate()
+        public virtual void LateUpdateState(CatStateMachine stateMachine)
         {
         }
 
-        public virtual void FixedUpdate()
+        public virtual void FixedUpdateState(CatStateMachine stateMachine)
         {
         }
 
@@ -47,7 +42,7 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine.States
             
         }
 
-        public virtual void OnMouseDrag()
+        public virtual void OnMouseDragState(CatStateMachine stateMachine)
         {
             
         }
