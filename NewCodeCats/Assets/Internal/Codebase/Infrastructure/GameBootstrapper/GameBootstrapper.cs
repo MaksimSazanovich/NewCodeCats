@@ -1,5 +1,3 @@
-using Internal.Codebase.Infrastructure.Constants;
-using Internal.Codebase.Infrastructure.Factories.CameraFactory;
 using Internal.Codebase.Infrastructure.Factories.CatsFactory;
 using Internal.Codebase.Infrastructure.GameStateMachine.States;
 using Internal.Codebase.Infrastructure.Services.CameraService;

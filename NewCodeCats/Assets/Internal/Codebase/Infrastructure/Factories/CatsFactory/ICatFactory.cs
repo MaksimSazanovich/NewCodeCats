@@ -8,7 +8,7 @@ namespace Internal.Codebase.Infrastructure.Factories.CatsFactory
 {
     public interface ICatFactory
     {
-        public Cat CreateCat(Camera camera, ICoroutineRunner coroutineRunner, Transform at, ICameraService cameraService);
+        public Cat CreateCat(ICoroutineRunner coroutineRunner, Transform at, ICameraService cameraService);
         
         public CatsSpawner CreateCatsSpawner(ICatFactory catFactory, ICoroutineRunner coroutineRunner, ICameraService cameraService);
     }

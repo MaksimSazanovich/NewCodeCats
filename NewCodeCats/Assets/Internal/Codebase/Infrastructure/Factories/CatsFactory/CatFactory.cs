@@ -19,13 +19,13 @@ namespace Internal.Codebase.Infrastructure.Factories.CatsFactory
             this.resourceProvider = resourceProvider;
         }
         
-        public Cat CreateCat(Camera camera, ICoroutineRunner coroutineRunner, Transform at, ICameraService cameraService)
+        public Cat CreateCat(ICoroutineRunner coroutineRunner, Transform at, ICameraService cameraService)
         {
             var config = resourceProvider.LoadCatConfig();
 
             var view = NightPool.Spawn(config.Cat, at);
             
-            view.StateMachine.Constructor(coroutineRunner, camera);
+            view.StateMachine.Constructor(coroutineRunner, cameraService);
             view.CheckBoundariesComponent.Constructor(cameraService);
 
             return view;

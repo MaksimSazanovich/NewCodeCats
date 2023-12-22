@@ -2,14 +2,13 @@ using UnityEngine;
 
 namespace Internal.Codebase.Runtime.Cat.StateMachine.States
 {
-    public sealed class DragState : State
+    public sealed class DragState : EntityState
     {
         private Vector2 difference = Vector2.zero;
         
         public override void Enter(CatStateMachine stateMachine)
         {
-            transform.position = stateMachine.Camera.ScreenToWorldPoint(Input.mousePosition);
-            difference = stateMachine.Camera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            //difference = stateMachine.Camera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         }
         
         public override void OnMouseDragState(CatStateMachine stateMachine)

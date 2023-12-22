@@ -7,8 +7,6 @@ namespace Internal.Codebase.Infrastructure.Services.CoroutineRunner
     {
         public Coroutine StartCoroutine(IEnumerator coroutine);
 
-        public void StopAllCoroutines();
-
         public void StopCoroutine(IEnumerator coroutine);
     }
 }

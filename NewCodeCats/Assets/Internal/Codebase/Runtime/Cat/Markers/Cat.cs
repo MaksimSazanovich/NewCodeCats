@@ -9,5 +9,6 @@ namespace Internal.Codebase.Runtime.Cat.Markers
     {
         [field: SerializeField] public CatStateMachine StateMachine { get; private set; }
         [field: SerializeField] public CheckBoundariesComponent CheckBoundariesComponent { get; private set; }
+        public CatTypes.CatTypes Type { get; private set; }
     }
 }

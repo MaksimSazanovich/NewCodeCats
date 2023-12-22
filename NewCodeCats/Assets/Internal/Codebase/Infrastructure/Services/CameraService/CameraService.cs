@@ -16,7 +16,9 @@ namespace Internal.Codebase.Infrastructure.Services.CameraService
         public void Init() =>
             camera = cameraFactory.CreateCamera();
 
-        public Camera GetCamera() =>
-            camera;
+        public Camera GetCamera()
+        {
+            return camera;
+        }
     }
 }

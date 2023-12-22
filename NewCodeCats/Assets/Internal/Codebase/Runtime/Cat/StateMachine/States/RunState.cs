@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Internal.Codebase.Runtime.Cat.StateMachine.States
 {
-    public class RunState : State
+    public class RunState : EntityState
     {
         [field: SerializeField] public float RunOffset { get; private set; } = 1;
         [field: SerializeField] public float Speed { get; private set; } = 4;

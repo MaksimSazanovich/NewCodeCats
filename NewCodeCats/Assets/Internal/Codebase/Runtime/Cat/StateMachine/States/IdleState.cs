@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Internal.Codebase.Runtime.Cat.StateMachine.States
 {
-    public class IdleState : State
+    public class IdleState : EntityState
     {
         private CatStateMachine stateMachine;
         private Coroutine coroutine;

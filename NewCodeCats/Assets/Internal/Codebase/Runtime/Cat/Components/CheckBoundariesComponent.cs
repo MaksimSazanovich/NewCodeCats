@@ -1,7 +1,5 @@
-using System;
 using Internal.Codebase.Infrastructure.Services.CameraService;
 using UnityEngine;
-using Zenject;
 
 namespace Internal.Codebase.Runtime.Cat.Components
 {
@@ -11,15 +9,19 @@ namespace Internal.Codebase.Runtime.Cat.Components
         private Vector2 screenBounds;
         private ICameraService cameraService;
         [field: SerializeField] public float Offset { get; private set; }
+
+        private UnityEngine.Camera camera;
         
         public void Constructor(ICameraService cameraService)
         {
             this.cameraService = cameraService;
+
+            camera = cameraService.GetCamera();
         }
         private void Start()
         {
-            screenBounds = cameraService.GetCamera().ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,
-                cameraService.GetCamera().transform.position.z));
+            screenBounds = camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height,
+                camera.transform.position.z));
         }
 
         private void Update()
@@ -32,7 +34,7 @@ namespace Internal.Codebase.Runtime.Cat.Components
             CheckBoundaries();
         }
 
-        public void CheckBoundaries()
+        private void CheckBoundaries()
         {
             var position = transform.position;
             float x = Mathf.Clamp(position.x, -screenBounds.x + Offset,

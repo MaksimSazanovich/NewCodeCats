@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Internal.Codebase.Runtime.Cat.StateMachine.States
 {
-    public abstract class State : MonoBehaviour
+    public abstract class EntityState : MonoBehaviour
     {
         public virtual void Enter(CatStateMachine stateMachine)
         {

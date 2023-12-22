@@ -48,14 +48,14 @@ namespace Internal.Codebase.Runtime.CatsSpawner
         {
             for (int i = 0; i < MaxCatsCount; i++)
             {
-                Cats.Add(catFactory.CreateCat(cameraService.GetCamera(), coroutineRunner, transform, cameraService));
+                Cats.Add(catFactory.CreateCat(coroutineRunner, transform, cameraService));
             }
         }
 
         [Button(nameof(EnableCat))]
         public void EnableCat()
         {
-            catFactory.CreateCat(cameraService.GetCamera(), coroutineRunner, transform, cameraService);
+            catFactory.CreateCat(coroutineRunner, transform, cameraService);
         }
     }
 }
