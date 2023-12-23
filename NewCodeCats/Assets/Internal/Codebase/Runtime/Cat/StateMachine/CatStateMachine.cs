@@ -5,6 +5,7 @@ using Internal.Codebase.Infrastructure.Services.CameraService;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Runtime.Cat.StateMachine.States;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Internal.Codebase.Runtime.Cat.StateMachine
 {
@@ -13,7 +14,7 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
         private Dictionary<Type, EntityState> states;
         private EntityState activeEntityState;
 
-         public UnityEngine.Camera Camera { get; private set; }
+        public UnityEngine.Camera Camera { get; private set; }
 
         public ICoroutineRunner CoroutineRunner { get; private set; }
 
@@ -21,16 +22,22 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
         [SerializeField] private RunState runState;
         [SerializeField] private DragState dragState;
         [SerializeField] private ClickState clickState;
+        [SerializeField] private MergeState mergeState;
+
+        [SerializeField] private CircleCollider2D circleCollider2D;
+
+        [field: SerializeField] public Markers.Cat Cat { get; private set; }
 
         private Coroutine coroutine;
 
         private Vector3 positionOnMouseDown;
         private Vector3 positionOnMouseUp;
         private ICameraService cameraService;
+        public GameObject CollisionCat { get; private set; }
 
         public void Constructor(ICoroutineRunner coroutineRunner, ICameraService cameraService)
         {
-            if(this.CoroutineRunner != null && this.cameraService != null)
+            if (this.CoroutineRunner != null && this.cameraService != null)
                 return;
             Debug.Log("Constructor");
             this.cameraService = cameraService;
@@ -44,6 +51,7 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
         private void Awake()
         {
             activeEntityState = runState;
+            circleCollider2D.enabled = false;
         }
 
         private void Start()
@@ -78,14 +86,16 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
         {
             positionOnMouseUp = transform.position;
             positionOnMouseUp.z = 0;
-            
-            if(positionOnMouseUp == positionOnMouseDown)
+
+            if (positionOnMouseUp == positionOnMouseDown)
                 ChangeToClickState();
-            
+
             if (coroutine != null)
                 StopCoroutine(coroutine);
-            
+
             coroutine = StartCoroutine(AfterMouseUpTimer());
+
+            circleCollider2D.enabled = true;
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -96,6 +106,14 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
         private void OnTriggerEnter2D(Collider2D other)
         {
             activeEntityState.OnTriggerEnter2D(other);
+            if (other.TryGetComponent(out Markers.Cat cat))
+            {
+                if (cat.Type == Cat.Type)
+                {
+                    CollisionCat = other.gameObject;
+                    ChangeToMergeState();
+                }
+            }
         }
 
         public TState ChangeState<TState>() where TState : EntityState
@@ -136,6 +154,13 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
         {
             activeEntityState?.Exit(this);
             activeEntityState = clickState;
+            activeEntityState.Enter(this);
+        }
+
+        private void ChangeToMergeState()
+        {
+            activeEntityState?.Exit(this);
+            activeEntityState = mergeState;
             activeEntityState.Enter(this);
         }
 

@@ -7,7 +7,7 @@ namespace Internal.Codebase.Runtime.Cat.CatTypes
         PythonCat,
         Murzik,
         ByteCat,
-        CharpCat,
+        SharpCat,
         CodeCate,
         LeadCat,
         GuruCat

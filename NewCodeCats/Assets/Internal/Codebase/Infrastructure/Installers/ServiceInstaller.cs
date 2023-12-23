@@ -1,6 +1,7 @@
 using Internal.Codebase.Infrastructure.Services.CameraService;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.LoadingCurtain;
+using Internal.Codebase.Infrastructure.Services.NumberAbbreviator;
 using Internal.Codebase.Infrastructure.Services.ResourceProvider;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using UnityEngine;
@@ -21,6 +22,8 @@ namespace Internal.Codebase.Infrastructure.Installers
             
             Container.Bind<ICurtainService>().To<CurtainService>().AsSingle().NonLazy();
             Container.Bind<ICameraService>().To<CameraService>().AsSingle().NonLazy();
+
+            Container.Bind<INumberAbbreviatorService>().To<NumberAbbreviatorService>().AsSingle().NonLazy();
         }
     }
 }

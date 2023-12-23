@@ -1,6 +1,8 @@
 using Internal.Codebase.Infrastructure.Services.CameraService;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.ResourceProvider;
+using Internal.Codebase.Runtime.Cat.CatStatsConfig;
+using Internal.Codebase.Runtime.Cat.CatTypes;
 using Internal.Codebase.Runtime.Cat.Markers;
 using Internal.Codebase.Runtime.CatsSpawner;
 using NTC.Pool;
@@ -19,7 +21,8 @@ namespace Internal.Codebase.Infrastructure.Factories.CatsFactory
             this.resourceProvider = resourceProvider;
         }
         
-        public Cat CreateCat(ICoroutineRunner coroutineRunner, Transform at, ICameraService cameraService)
+        public Cat CreateCat(ICoroutineRunner coroutineRunner, Transform at, ICameraService cameraService,
+            CatTypes catType)
         {
             var config = resourceProvider.LoadCatConfig();
 
@@ -27,6 +30,7 @@ namespace Internal.Codebase.Infrastructure.Factories.CatsFactory
             
             view.StateMachine.Constructor(coroutineRunner, cameraService);
             view.CheckBoundariesComponent.Constructor(cameraService);
+            view.Constructor(resourceProvider.LoadCatStatsConfig(catType));
 
             return view;
         }

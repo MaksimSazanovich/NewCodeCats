@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.Factories.CatsFactory;
 using Internal.Codebase.Infrastructure.Services.CameraService;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
+using Internal.Codebase.Runtime.Cat.CatStatsConfig;
+using Internal.Codebase.Runtime.Cat.CatTypes;
+using Internal.Codebase.Runtime.Cat.StateMachine.States;
 using ModestTree;
 using NaughtyAttributes;
 using NTC.Pool;
@@ -18,6 +22,23 @@ namespace Internal.Codebase.Runtime.CatsSpawner
         [field: SerializeField] public int MaxCatsCount = 15;
         private ICameraService cameraService;
         private ICoroutineRunner coroutineRunner;
+        private CatStatsConfig catStatsConfig;
+        private CatTypes catType = CatTypes.Kitten;
+
+        private void OnEnable()
+        {
+            MergeState.OnMerged += CreateApperCat;
+        }
+
+        private void OnDisable()
+        {
+            MergeState.OnMerged -= CreateApperCat;
+        }
+
+        private void CreateApperCat(CatTypes type)
+        {
+            CreateCat(type++);
+        }
 
         public void Constructor(ICatFactory catFactory, ICoroutineRunner coroutineRunner, ICameraService cameraService)
         {
@@ -48,14 +69,19 @@ namespace Internal.Codebase.Runtime.CatsSpawner
         {
             for (int i = 0; i < MaxCatsCount; i++)
             {
-                Cats.Add(catFactory.CreateCat(coroutineRunner, transform, cameraService));
+                Cats.Add(catFactory.CreateCat(coroutineRunner, transform, cameraService, catType));
             }
+        }
+
+        private void CreateCat(CatTypes catType)
+        {
+            catFactory.CreateCat(coroutineRunner, transform, cameraService, CatTypes.Scratch);
         }
 
         [Button(nameof(EnableCat))]
         public void EnableCat()
         {
-            catFactory.CreateCat(coroutineRunner, transform, cameraService);
+            catFactory.CreateCat(coroutineRunner, transform, cameraService, catType);
         }
     }
 }

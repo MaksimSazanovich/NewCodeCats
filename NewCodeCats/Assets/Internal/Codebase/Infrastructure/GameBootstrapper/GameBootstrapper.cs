@@ -3,6 +3,7 @@ using Internal.Codebase.Infrastructure.GameStateMachine.States;
 using Internal.Codebase.Infrastructure.Services.CameraService;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.LoadingCurtain;
+using Internal.Codebase.Infrastructure.Services.NumberAbbreviator;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.UI.MainUI.LoadingCurtain;
 using UnityEngine;
@@ -19,11 +20,13 @@ namespace Internal.Codebase.Infrastructure.GameBootstrapper
         private ICatFactory catFactory;
         private ICoroutineRunner coroutineRunner;
         private ICameraService cameraService;
+        private INumberAbbreviatorService numberAbbreviatorService;
 
         [Inject]
         private void Constructor(ISceneLoaderService loaderService, ICurtainService curtainService,
             CurtainConfig curtainConfig, ICatFactory catFactory, ICameraService cameraService, ICoroutineRunner coroutineRunner)
         {
+            this.numberAbbreviatorService = numberAbbreviatorService;
             this.cameraService = cameraService;
             this.coroutineRunner = coroutineRunner;
             this.catFactory = catFactory;

@@ -6,5 +6,7 @@ namespace Internal.Codebase.Runtime.Cat.CatStatsConfig
     public class CatStatsConfig : ScriptableObject
     {
         [field: SerializeField] public CatTypes.CatTypes Type { get; private set; }
+        [field: SerializeField] public Sprite Sprite { get; private set; }
+        [field: SerializeField] public int Profit { get; private set; }
     }
 }

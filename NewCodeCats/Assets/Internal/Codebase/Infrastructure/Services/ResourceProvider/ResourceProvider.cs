@@ -1,6 +1,8 @@
 using Internal.Codebase.Infrastructure.Constants;
 using Internal.Codebase.Runtime.Camera;
 using Internal.Codebase.Runtime.Cat;
+using Internal.Codebase.Runtime.Cat.CatStatsConfig;
+using Internal.Codebase.Runtime.Cat.CatTypes;
 using Internal.Codebase.Runtime.CatsSpawner;
 using Internal.Codebase.UI.MainUI.LoadingCurtain;
 using UnityEngine;
@@ -27,6 +29,11 @@ namespace Internal.Codebase.Infrastructure.Services.ResourceProvider
         public CameraConfig LoadCameraConfig()
         {
             return Resources.Load<CameraConfig>(AssetPath.CameraConfig);
+        }
+
+        public CatStatsConfig LoadCatStatsConfig(CatTypes type)
+        {
+            return Resources.Load<CatStatsConfig>(AssetPath.CatStatsConfig + type);
         }
     }
 }

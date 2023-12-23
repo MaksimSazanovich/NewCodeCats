@@ -6,5 +6,7 @@ namespace Internal.Codebase.Infrastructure.Constants
         public const string CatConfig = "StaticData/Cat/CatConfig";
         public const string CatsSpawnerConfig = "StaticData/CatsSpawner/CatsSpawnerConfig";
         public const string CameraConfig = "StaticData/Camera/CameraConfig";
+        public const string CatStatsConfig = "StaticData/Cat/CatStatsConfigs/";
+        
     }
 }
