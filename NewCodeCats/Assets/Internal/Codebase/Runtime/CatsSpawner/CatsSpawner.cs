@@ -35,10 +35,10 @@ namespace Internal.Codebase.Runtime.CatsSpawner
             MergeState.OnMerged -= CreateUpgradedCat;
         }
 
-        private void CreateUpgradedCat(CatTypes type)
+        private void CreateUpgradedCat(CatTypes type, Vector3 position)
         {
             //Debug.Log(type++);
-            CreateCat(++type);
+            CreateCat(++type, position);
         }
 
         public void Constructor(ICatFactory catFactory)
@@ -68,19 +68,19 @@ namespace Internal.Codebase.Runtime.CatsSpawner
         {
             for (int i = 0; i < MaxCatsCount; i++)
             {
-                Cats.Add(catFactory.CreateCat(transform, catType));
+                Cats.Add(catFactory.CreateCat(transform, catType, Vector3.zero));
             }
         }
 
-        private void CreateCat(CatTypes catType)
+        private void CreateCat(CatTypes catType, Vector3 position)
         {
-            catFactory.CreateCat(transform, catType);
+            catFactory.CreateCat(transform, catType, position);
         }
 
         [Button(nameof(EnableCat))]
         public void EnableCat()
         {
-            catFactory.CreateCat(transform,catType);
+            catFactory.CreateCat(transform,catType, Vector3.zero);
         }
     }
 }

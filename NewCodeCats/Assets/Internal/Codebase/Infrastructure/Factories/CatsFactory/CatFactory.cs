@@ -32,11 +32,11 @@ namespace Internal.Codebase.Infrastructure.Factories.CatsFactory
             
         }
         
-        public Cat CreateCat(Transform at, CatTypes catType)
+        public Cat CreateCat(Transform at, CatTypes catType, Vector3 position)
         {
             var config = resourceProvider.LoadCatConfig();
 
-            var view = NightPool.Spawn(config.Cat, at);
+            var view = NightPool.Spawn(config.Cat, position, Quaternion.identity, at);
             
             view.StateMachine.Constructor(coroutineRunner, cameraService, numberAbbreviatorService);
             view.CheckBoundariesComponent.Constructor(cameraService);
