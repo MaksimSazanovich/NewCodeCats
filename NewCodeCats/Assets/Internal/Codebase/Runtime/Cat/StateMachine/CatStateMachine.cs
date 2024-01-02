@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.Services.CameraService;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
+using Internal.Codebase.Infrastructure.Services.NumberAbbreviator;
 using Internal.Codebase.Runtime.Cat.StateMachine.States;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Internal.Codebase.Runtime.Cat.StateMachine
 {
@@ -28,29 +28,31 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
 
         [field: SerializeField] public Markers.Cat Cat { get; private set; }
 
+        private Coroutine coroutineBeforeRun;
         private Coroutine coroutine;
 
         private Vector3 positionOnMouseDown;
         private Vector3 positionOnMouseUp;
         private ICameraService cameraService;
+        private bool canMerge;
+        public INumberAbbreviatorService NumberAbbreviatorService { get; private set; }
         public GameObject CollisionCat { get; private set; }
 
-        public void Constructor(ICoroutineRunner coroutineRunner, ICameraService cameraService)
+        public void Constructor(ICoroutineRunner coroutineRunner, ICameraService cameraService,
+            INumberAbbreviatorService numberAbbreviatorService)
         {
+            NumberAbbreviatorService = numberAbbreviatorService;
             if (this.CoroutineRunner != null && this.cameraService != null)
                 return;
-            Debug.Log("Constructor");
             this.cameraService = cameraService;
-            Debug.Log(this.cameraService);
             CoroutineRunner = coroutineRunner;
 
             Camera = this.cameraService.GetCamera();
-            Debug.Log(this.cameraService);
         }
 
-        private void Awake()
+        private void OnEnable()
         {
-            activeEntityState = runState;
+            ChangeToRunState();
             circleCollider2D.enabled = false;
         }
 
@@ -84,15 +86,21 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
 
         private void OnMouseUp()
         {
+            canMerge = true;
+            
             positionOnMouseUp = transform.position;
             positionOnMouseUp.z = 0;
 
             if (positionOnMouseUp == positionOnMouseDown)
                 ChangeToClickState();
 
-            if (coroutine != null)
+            if (coroutineBeforeRun != null)
+                StopCoroutine(coroutineBeforeRun);
+            
+            if(coroutine != null)
                 StopCoroutine(coroutine);
 
+            coroutineBeforeRun = StartCoroutine(AfterMouseUpAndBeforeRunTimer());
             coroutine = StartCoroutine(AfterMouseUpTimer());
 
             circleCollider2D.enabled = true;
@@ -106,10 +114,11 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
         private void OnTriggerEnter2D(Collider2D other)
         {
             activeEntityState.OnTriggerEnter2D(other);
-            if (other.TryGetComponent(out Markers.Cat cat))
+            if(canMerge && other.TryGetComponent(out Markers.Cat cat))
             {
                 if (cat.Type == Cat.Type)
                 {
+                    canMerge = false;
                     CollisionCat = other.gameObject;
                     ChangeToMergeState();
                 }
@@ -157,17 +166,24 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine
             activeEntityState.Enter(this);
         }
 
-        private void ChangeToMergeState()
+        public void ChangeToMergeState()
         {
             activeEntityState?.Exit(this);
             activeEntityState = mergeState;
             activeEntityState.Enter(this);
         }
 
-        private IEnumerator AfterMouseUpTimer()
+        private IEnumerator AfterMouseUpAndBeforeRunTimer()
         {
             yield return new WaitForSeconds(1.5f);
             ChangeToRunState();
+        }
+
+        private IEnumerator AfterMouseUpTimer()
+        {
+            yield return new WaitForSeconds(0.5f);
+            circleCollider2D.enabled = false;
+            canMerge = false;
         }
 
         /*public void ChangeToRunState() => ChangeState<RunState>().Enter(this);

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.Factories.CameraFactory;
 using Internal.Codebase.Infrastructure.Factories.CatsFactory;
+using Internal.Codebase.Infrastructure.Factories.NotificationCoinFactory;
 using Internal.Codebase.Infrastructure.GameStateMachine.States;
 using Internal.Codebase.Infrastructure.Services.CameraService;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
@@ -17,13 +18,14 @@ namespace Internal.Codebase.Infrastructure.GameStateMachine
         private IExitableState activeState;
 
         public GameStateMachine(ISceneLoaderService sceneLoader, ICurtainService curtain, CurtainConfig curtainConfig,
-            ICatFactory catFactory, ICameraService cameraService, ICoroutineRunner coroutineRunner)
+            ICatFactory catFactory, ICameraService cameraService, ICoroutineRunner coroutineRunner,
+            INotificationCoinFactory notificationCoinFactory)
         {
             states = new Dictionary<Type, IExitableState>
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
                 [typeof(LoadGameSceneState)] = new LoadGameSceneState(this, sceneLoader, curtain, curtainConfig,
-                    catFactory, cameraService, coroutineRunner),
+                    catFactory, cameraService, coroutineRunner, notificationCoinFactory),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }

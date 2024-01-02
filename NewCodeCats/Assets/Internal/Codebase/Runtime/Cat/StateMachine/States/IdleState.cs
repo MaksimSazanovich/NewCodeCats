@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine.States
     {
         private CatStateMachine stateMachine;
         private Coroutine coroutine;
+        
+        public static event Action<Transform, float, string> OnCreatedMoneyInIdleState;
 
         public override void Enter(CatStateMachine stateMachine)
         {
@@ -18,12 +21,14 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine.States
         {
             yield return new WaitForSeconds(1);
             CreateMoney();
+            yield return new WaitForSeconds(1);
             stateMachine.ChangeToRunState();
         }
 
         private void CreateMoney()
         {
-            Debug.Log("+1");
+            OnCreatedMoneyInIdleState?.Invoke(transform, stateMachine.Cat.CoinOffset,
+                stateMachine.NumberAbbreviatorService.AbbreviateNumber(stateMachine.Cat.Profit) );
         }
 
         public override void Exit(CatStateMachine stateMachine)

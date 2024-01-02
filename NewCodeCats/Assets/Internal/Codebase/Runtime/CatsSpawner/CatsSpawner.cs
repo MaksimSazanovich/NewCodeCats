@@ -17,34 +17,33 @@ namespace Internal.Codebase.Runtime.CatsSpawner
     [DisallowMultipleComponent]
     public sealed class CatsSpawner : MonoBehaviour
     {
-        private ICatFactory catFactory;
         [field: SerializeField] public List<Cat.Markers.Cat> Cats { get; private set; }
         [field: SerializeField] public int MaxCatsCount = 15;
-        private ICameraService cameraService;
-        private ICoroutineRunner coroutineRunner;
+
         private CatStatsConfig catStatsConfig;
         private CatTypes catType = CatTypes.Kitten;
 
+        private ICatFactory catFactory;
+
         private void OnEnable()
         {
-            MergeState.OnMerged += CreateApperCat;
+            MergeState.OnMerged += CreateUpgradedCat;
         }
 
         private void OnDisable()
         {
-            MergeState.OnMerged -= CreateApperCat;
+            MergeState.OnMerged -= CreateUpgradedCat;
         }
 
-        private void CreateApperCat(CatTypes type)
+        private void CreateUpgradedCat(CatTypes type)
         {
-            CreateCat(type++);
+            //Debug.Log(type++);
+            CreateCat(++type);
         }
 
-        public void Constructor(ICatFactory catFactory, ICoroutineRunner coroutineRunner, ICameraService cameraService)
+        public void Constructor(ICatFactory catFactory)
         {
-            this.coroutineRunner = coroutineRunner;
             this.catFactory = catFactory;
-            this.cameraService = cameraService;
         }
 
         public void Init()
@@ -69,19 +68,19 @@ namespace Internal.Codebase.Runtime.CatsSpawner
         {
             for (int i = 0; i < MaxCatsCount; i++)
             {
-                Cats.Add(catFactory.CreateCat(coroutineRunner, transform, cameraService, catType));
+                Cats.Add(catFactory.CreateCat(transform, catType));
             }
         }
 
         private void CreateCat(CatTypes catType)
         {
-            catFactory.CreateCat(coroutineRunner, transform, cameraService, CatTypes.Scratch);
+            catFactory.CreateCat(transform, catType);
         }
 
         [Button(nameof(EnableCat))]
         public void EnableCat()
         {
-            catFactory.CreateCat(coroutineRunner, transform, cameraService, catType);
+            catFactory.CreateCat(transform,catType);
         }
     }
 }

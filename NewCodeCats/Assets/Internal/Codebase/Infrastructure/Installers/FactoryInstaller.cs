@@ -1,6 +1,7 @@
 using Internal.Codebase.Infrastructure.Factories;
 using Internal.Codebase.Infrastructure.Factories.CameraFactory;
 using Internal.Codebase.Infrastructure.Factories.CatsFactory;
+using Internal.Codebase.Infrastructure.Factories.NotificationCoinFactory;
 using UnityEngine;
 using Zenject;
 
@@ -14,6 +15,7 @@ namespace Internal.Codebase.Infrastructure.Installers
             Container.Bind<IMainUIFactory>().To<MainUIFactory>().AsSingle().NonLazy();
             Container.Bind<ICatFactory>().To<CatFactory>().AsSingle().NonLazy();
             Container.Bind<ICameraFactory>().To<CameraFactory>().AsSingle().NonLazy();
+            Container.Bind<INotificationCoinFactory>().To<NotificationCoinFactory>().AsSingle().NonLazy();
         }
     }
 }

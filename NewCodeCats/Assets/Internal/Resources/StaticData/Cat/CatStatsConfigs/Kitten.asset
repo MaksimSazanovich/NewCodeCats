@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 478474881, guid: 3e98c69d1de442e4195de0702771a511, type: 3}
+  <Profit>k__BackingField: 0.5
+  <CoinOffset>k__BackingField: 0.7

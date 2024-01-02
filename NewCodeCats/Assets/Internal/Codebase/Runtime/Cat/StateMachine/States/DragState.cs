@@ -6,11 +6,6 @@ namespace Internal.Codebase.Runtime.Cat.StateMachine.States
     {
         private Vector2 difference = Vector2.zero;
         
-        public override void Enter(CatStateMachine stateMachine)
-        {
-            //difference = stateMachine.Camera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        }
-        
         public override void OnMouseDragState(CatStateMachine stateMachine)
         {
             transform.position = (Vector2)stateMachine.Camera.ScreenToWorldPoint(Input.mousePosition) - difference;

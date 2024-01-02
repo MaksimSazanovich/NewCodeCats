@@ -4,6 +4,8 @@ using Internal.Codebase.Runtime.Cat;
 using Internal.Codebase.Runtime.Cat.CatStatsConfig;
 using Internal.Codebase.Runtime.Cat.CatTypes;
 using Internal.Codebase.Runtime.CatsSpawner;
+using Internal.Codebase.Runtime.NotificationCoinSpawner;
+using Internal.Codebase.Runtime.UI.GameUI.NotificationCoin;
 using Internal.Codebase.UI.MainUI.LoadingCurtain;
 using UnityEngine;
 
@@ -34,6 +36,16 @@ namespace Internal.Codebase.Infrastructure.Services.ResourceProvider
         public CatStatsConfig LoadCatStatsConfig(CatTypes type)
         {
             return Resources.Load<CatStatsConfig>(AssetPath.CatStatsConfig + type);
+        }
+
+        public NotificationCoinConfig LoadNotificationCoinConfig()
+        {
+            return Resources.Load<NotificationCoinConfig>(AssetPath.NotificationCoinConfig);
+        }
+
+        public NotificationCoinsSpawnerConfig LoadNotificationCoinSpawnerConfig()
+        {
+            return Resources.Load<NotificationCoinsSpawnerConfig>(AssetPath.NotificationCoinsSpawnerConfig);
         }
     }
 }

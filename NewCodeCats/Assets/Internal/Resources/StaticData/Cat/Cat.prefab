@@ -217,6 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <StateMachine>k__BackingField: {fileID: 3408278479105185050}
   <CheckBoundariesComponent>k__BackingField: {fileID: -6865930711307938010}
+  <CoinOffset>k__BackingField: 0
   spriteRenderer: {fileID: 6779150536126799018}
 --- !u!114 &3408278479105185050
 MonoBehaviour:
@@ -237,7 +238,6 @@ MonoBehaviour:
   mergeState: {fileID: 6254966200245248774}
   circleCollider2D: {fileID: 4532310752647426435}
   <Cat>k__BackingField: {fileID: -5875205370619586725}
-  <CollisionCat>k__BackingField: {fileID: 0}
 --- !u!114 &-2216424382673261239
 MonoBehaviour:
   m_ObjectHideFlags: 0

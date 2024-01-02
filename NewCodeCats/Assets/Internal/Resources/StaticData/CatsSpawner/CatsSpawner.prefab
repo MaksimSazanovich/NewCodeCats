@@ -65,7 +65,7 @@ MonoBehaviour:
   _behaviourOnCapacityReached: 2
   _despawnType: 0
   _callbacksType: 1
-  _capacity: 15
+  _capacity: 50
   _dontDestroyOnLoad: 0
   _sendWarnings: 1
   _nightPoolMode: 0

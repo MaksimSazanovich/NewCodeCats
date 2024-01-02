@@ -1,4 +1,5 @@
 using Internal.Codebase.Infrastructure.Factories.CatsFactory;
+using Internal.Codebase.Infrastructure.Factories.NotificationCoinFactory;
 using Internal.Codebase.Infrastructure.GameStateMachine.States;
 using Internal.Codebase.Infrastructure.Services.CameraService;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
@@ -21,11 +22,14 @@ namespace Internal.Codebase.Infrastructure.GameBootstrapper
         private ICoroutineRunner coroutineRunner;
         private ICameraService cameraService;
         private INumberAbbreviatorService numberAbbreviatorService;
+        private INotificationCoinFactory notificationCoinFactory;
 
         [Inject]
         private void Constructor(ISceneLoaderService loaderService, ICurtainService curtainService,
-            CurtainConfig curtainConfig, ICatFactory catFactory, ICameraService cameraService, ICoroutineRunner coroutineRunner)
+            CurtainConfig curtainConfig, ICatFactory catFactory, ICameraService cameraService, ICoroutineRunner coroutineRunner,
+            INotificationCoinFactory notificationCoinFactory)
         {
+            this.notificationCoinFactory = notificationCoinFactory;
             this.numberAbbreviatorService = numberAbbreviatorService;
             this.cameraService = cameraService;
             this.coroutineRunner = coroutineRunner;
@@ -37,7 +41,7 @@ namespace Internal.Codebase.Infrastructure.GameBootstrapper
         private void Start()
         {
             stateMachine = new GameStateMachine.GameStateMachine(loaderService, curtainService, curtainConfig, catFactory, 
-            cameraService, coroutineRunner);
+            cameraService, coroutineRunner, notificationCoinFactory);
             stateMachine.Enter<BootstrapState>();
         }
         

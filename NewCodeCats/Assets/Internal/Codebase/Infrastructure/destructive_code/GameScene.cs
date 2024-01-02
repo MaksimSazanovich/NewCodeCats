@@ -37,7 +37,7 @@ namespace destructive_code
             cameraService.Init();
             curtainService.Init();
             
-            CatsSpawner catsSpawner = catFactory.CreateCatsSpawner(catFactory, coroutineRunner, cameraService);
+            CatsSpawner catsSpawner = catFactory.CreateCatsSpawner();
             catsSpawner.Init();
             
             curtainService.HideCurtain();

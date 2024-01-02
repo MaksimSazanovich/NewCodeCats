@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.Cat.StateMachine.States
 {
     public abstract class EntityState : MonoBehaviour
     {
+        public static event Action<Transform, float, string> OnCreatedMoney;
         public virtual void Enter(CatStateMachine stateMachine)
         {
         }
